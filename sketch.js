@@ -29,14 +29,19 @@ function setup() {
 function draw() {
   background(189);
   image(backgroundImg, 0, 0, width, height);
-  // console.log(backgroundMusic.isPlaying());
-  // if (!backgroundMusic.isPlaying()) {
-  //   backgroundMusic.play();
-  //   // backgroundMusic.loop();
-  // }
+
+  if (!backgroundMusic.isPlaying()) {
+    backgroundMusic.play();
+    // backgroundMusic.loop();
+  }
 
   Engine.update(engine);
   ground.display();
+
+  drawCannonBalls();
+  drawBoats();
+  cannon.display();
+  tower.display();
 
   for (var i = 0; i < balls.length; i++) {
     for (var j = 0; j < boats.length; j++) {
@@ -54,11 +59,6 @@ function draw() {
       }
     }
   }
-
-  drawCannonBalls();
-  drawBoats();
-  cannon.display();
-  tower.display();
 }
 
 function keyPressed() {
