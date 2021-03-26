@@ -5,8 +5,8 @@ class CannonBall {
       restitution: 0.8
     };
     this.r = 40;
-    this.body = Bodies.circle(x, y, this.r, options);
-
+    this.body = Bodies.rectangle(x, y, this.r, this.r, options);
+    this.image = loadImage("./assets/cannonball.png");
     World.add(world, this.body);
   }
 
@@ -26,7 +26,8 @@ class CannonBall {
     translate(pos.x, pos.y);
     rotate(angle);
     fill("yellow");
-    ellipse(0, cannonHeight / 2, this.r, this.r);
+    imageMode(CENTER);
+    image(this.image, 0, 0, this.r, this.r);
     pop();
   }
 }

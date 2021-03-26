@@ -19,7 +19,7 @@ class Cannon {
     push();
     translate(this.x, this.y);
     rotate(this.angle);
-
+    rectMode(CENTER);
     rect(0, 0, this.width, this.height);
     pop();
     arc(this.x - 90, this.y + 80, 180, 200, PI, TWO_PI);
