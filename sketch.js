@@ -2,9 +2,8 @@ const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
-var engine, world, backgroundImg;
-var canvas, cannonBall, tower, ground, cannon;
-var angle, waterSound, cannonExplosion;
+var engine, world, backgroundImg, waterSound, cannonExplosion;
+var canvas, angle, cannonBall, tower, ground, cannon, boat;
 var balls = [];
 
 function preload() {
@@ -21,6 +20,7 @@ function setup() {
   ground = new Ground(0, height - 1, width * 2, 1);
   tower = new Tower(width / 2 - 650, height - 280, 250, 560);
   cannon = new Cannon(width / 2 - 600, height / 2 - 220, 120, 40, angle);
+  boat = new Boat(width - 200, height - 5, 200, 200);
 }
 
 function draw() {
@@ -38,12 +38,13 @@ function draw() {
   }
   cannon.display();
   tower.display();
+  boat.display();
 }
 
 function keyPressed() {
   if (keyCode === DOWN_ARROW) {
     cannonBall = new CannonBall(cannon.x, cannon.y);
-    Matter.Body.setStatic(this.body, true);
+    Matter.Body.setStatic(cannonBall.body, true);
     Matter.Body.setAngle(cannonBall.body, cannon.angle);
     balls.push(cannonBall);
   }
