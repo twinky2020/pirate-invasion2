@@ -18,7 +18,7 @@ function setup() {
   angle = -PI / 4;
   ground = new Ground(0, height - 1, width * 2, 1);
   tower = new Tower(width / 2 - 650, height - 280, 250, 560);
-  cannon = new Cannon(width / 2 - 550, height / 2 - 220, 120, 40, angle);
+  cannon = new Cannon(width / 2 - 600, height / 2 - 220, 120, 40, angle);
 }
 
 function draw() {
@@ -28,10 +28,10 @@ function draw() {
 
   for (var ball of balls) {
     ball.display();
-    // if (ball.body.position.x >= width || ball.body.position.y >= height - 50) {
-    //   Matter.World.remove(world, ball.body);
-    //   balls.shift();
-    // }
+    if (ball.body.position.x >= width || ball.body.position.y >= height - 50) {
+      Matter.World.remove(world, ball.body);
+      balls.shift();
+    }
   }
   cannon.display();
   tower.display();

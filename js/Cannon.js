@@ -7,11 +7,12 @@ class Cannon {
     this.angle = angle;
   }
   display() {
-    if (keyIsDown(RIGHT_ARROW)) {
+    if (keyIsDown(RIGHT_ARROW) && this.angle < 0.5) {
+      console.log(this.angle);
       this.angle += 0.05;
     }
 
-    if (keyIsDown(LEFT_ARROW)) {
+    if (keyIsDown(LEFT_ARROW) && this.angle > -1.45) {
       this.angle -= 0.02;
     }
 
@@ -19,10 +20,9 @@ class Cannon {
     push();
     translate(this.x, this.y);
     rotate(this.angle);
-    rectMode(CENTER);
-    rect(0, 0, this.width, this.height);
+    rect(-10, -20, this.width, this.height);
     pop();
-    arc(this.x - 90, this.y + 80, 180, 200, PI, TWO_PI);
+    arc(this.x - 40, this.y + 80, 180, 230, PI, TWO_PI);
     noFill();
   }
 }

@@ -1,8 +1,9 @@
 class CannonBall {
   constructor(x, y) {
     var options = {
-      density: 0.3,
-      restitution: 0.8
+      density: 1.0,
+      restitution: 0.8,
+      friction: 1.0
     };
     this.r = 40;
     this.body = Bodies.rectangle(x, y, this.r, this.r, options);
