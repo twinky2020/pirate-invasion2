@@ -4,11 +4,13 @@ const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
 var engine, world, backgroundImg;
 var canvas, cannonBall, tower, ground, cannon;
-var angle;
+var angle, waterSound, cannonExplosion;
 var balls = [];
 
 function preload() {
   backgroundImg = loadImage("./assets/backgroundpng-new-03-03.png");
+  waterSound = loadSound("./assets/cannon_water.wav");
+  cannonExplosion = loadSound("./assets/cannon_explosion.wav");
 }
 
 function setup() {
@@ -29,6 +31,7 @@ function draw() {
   for (var ball of balls) {
     ball.display();
     if (ball.body.position.x >= width || ball.body.position.y >= height - 50) {
+      waterSound.play();
       Matter.World.remove(world, ball.body);
       balls.shift();
     }
@@ -48,6 +51,7 @@ function keyPressed() {
 
 function keyReleased() {
   if (keyCode === DOWN_ARROW) {
+    cannonExplosion.play();
     cannonBall.shoot();
   }
 }

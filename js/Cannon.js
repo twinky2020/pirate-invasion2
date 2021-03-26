@@ -8,7 +8,6 @@ class Cannon {
   }
   display() {
     if (keyIsDown(RIGHT_ARROW) && this.angle < 0.5) {
-      console.log(this.angle);
       this.angle += 0.05;
     }
 

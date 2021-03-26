@@ -1,14 +1,7 @@
-class CannonBall {
+class CannonBall extends BaseClass {
   constructor(x, y) {
-    var options = {
-      density: 1.0,
-      restitution: 0.8,
-      friction: 1.0
-    };
-    this.r = 40;
-    this.body = Bodies.rectangle(x, y, this.r, this.r, options);
+    super(x, y, 40, 40);
     this.image = loadImage("./assets/cannonball.png");
-    World.add(world, this.body);
   }
 
   shoot() {
@@ -19,16 +12,6 @@ class CannonBall {
   }
 
   display() {
-    var pos = this.body.position;
-    var angle = this.body.angle;
-    var cannonHeight = cannon.height;
-
-    push();
-    translate(pos.x, pos.y);
-    rotate(angle);
-    fill("yellow");
-    imageMode(CENTER);
-    image(this.image, 0, 0, this.r, this.r);
-    pop();
+    super.display();
   }
 }
