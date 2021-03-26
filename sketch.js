@@ -18,9 +18,9 @@ function setup() {
   world = engine.world;
   angle = -PI / 4;
   ground = new Ground(0, height - 1, width * 2, 1);
-  tower = new Tower(width / 2 - 650, height - 280, 250, 560);
+  tower = new Tower(width / 2 - 650, height - 290, 250, 580);
   cannon = new Cannon(width / 2 - 600, height / 2 - 220, 120, 40, angle);
-  boat = new Boat(width - 200, height - 5, 200, 200);
+  boat = new Boat(width - 200, height - 10, 200, 200);
 }
 
 function draw() {
@@ -28,14 +28,20 @@ function draw() {
   Engine.update(engine);
   ground.display();
 
-  for (var ball of balls) {
-    ball.display();
-    if (ball.body.position.x >= width || ball.body.position.y >= height - 50) {
+  for (var i = 0; i < balls.length; i++) {
+    balls[i].display();
+
+    if (
+      balls[i].body.position.x >= width ||
+      balls[i].body.position.y >= height - 50
+    ) {
       waterSound.play();
-      Matter.World.remove(world, ball.body);
-      balls.shift();
+      Matter.World.remove(world, balls[i].body);
+      balls.splice(i, 1);
+      i--;
     }
   }
+
   cannon.display();
   tower.display();
   boat.display();
