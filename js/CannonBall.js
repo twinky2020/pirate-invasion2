@@ -7,7 +7,7 @@ class CannonBall extends BaseClass {
   shoot() {
     var force = p5.Vector.fromAngle(cannon.angle);
     force.mult(20);
-    Matter.Body.set(this.body, "isStatic", false);
+    Matter.Body.setStatic(this.body, false);
     Matter.Body.setVelocity(this.body, { x: force.x, y: force.y });
   }
 

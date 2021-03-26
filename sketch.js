@@ -43,7 +43,7 @@ function draw() {
 function keyPressed() {
   if (keyCode === DOWN_ARROW) {
     cannonBall = new CannonBall(cannon.x, cannon.y);
-    Matter.Body.set(cannonBall.body, "isStatic", true);
+    Matter.Body.setStatic(this.body, true);
     Matter.Body.setAngle(cannonBall.body, cannon.angle);
     balls.push(cannonBall);
   }
