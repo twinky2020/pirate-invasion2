@@ -63,7 +63,7 @@ function draw() {
 
 function keyPressed() {
   if (keyCode === DOWN_ARROW) {
-    var cannonBall = new CannonBall(cannon.x, cannon.y, 40);
+    var cannonBall = new CannonBall(cannon.x, cannon.y);
     Matter.Body.setStatic(cannonBall.body, true);
     Matter.Body.setAngle(cannonBall.body, cannon.angle);
     balls.push(cannonBall);
@@ -73,7 +73,7 @@ function keyPressed() {
 function showCannonBalls(ball, index) {
   ball.display();
   if (ball.body.position.x >= width || ball.body.position.y >= height - 50) {
-    waterSound.play();
+    // waterSound.play();
     Matter.World.remove(world, ball.body);
     balls.splice(index, 1);
   }
@@ -86,9 +86,7 @@ function showBoats() {
       boats[boats.length - 1].body.position.x < width - 300
     ) {
       var positions = [-130, -100, -120, -80];
-
-      var position = positions[Math.floor(Math.random() * positions.length)];
-
+      var position = random(positions);
       var boat = new Boat(width, height - 100, 200, 200, position);
       boats.push(boat);
     }

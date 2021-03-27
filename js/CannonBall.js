@@ -1,15 +1,17 @@
 class CannonBall {
-  constructor(x, y, r) {
+  constructor(x, y) {
     var options = {
       restitution: 0.8,
       friction: 1.0,
       density: 1.0
     };
-    this.body = Bodies.circle(x, y, r, options);
+    this.r = 40;
 
-    this.r = r;
+    this.body = Bodies.circle(x, y, this.r, options);
 
     this.image = loadImage("./assets/cannonball.png");
+    this.tower = loadImage("./assets/gray.jpg");
+
     World.add(world, this.body);
   }
 
