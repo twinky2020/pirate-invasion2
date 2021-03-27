@@ -32,18 +32,16 @@ function draw() {
 
   if (!backgroundMusic.isPlaying()) {
     backgroundMusic.play();
-    // backgroundMusic.loop();
+    backgroundMusic.setVolume(0.1);
   }
 
   Engine.update(engine);
   ground.display();
 
-  drawCannonBalls();
-  drawBoats();
-  cannon.display();
-  tower.display();
+  showBoats();
 
   for (var i = 0; i < balls.length; i++) {
+    showCannonBalls(balls[i], i);
     for (var j = 0; j < boats.length; j++) {
       if (balls[i] !== undefined && boats[j] !== undefined) {
         var collision = Matter.SAT.collides(balls[i].body, boats[j].body);
@@ -59,35 +57,31 @@ function draw() {
       }
     }
   }
+
+  cannon.display();
+  tower.display();
 }
 
 function keyPressed() {
   if (keyCode === DOWN_ARROW) {
-    cannonBall = new CannonBall(cannon.x, cannon.y);
+    cannonBall = new CannonBall(cannon.x, cannon.y, 40);
     Matter.Body.setStatic(cannonBall.body, true);
     Matter.Body.setAngle(cannonBall.body, cannon.angle);
     balls.push(cannonBall);
   }
 }
 
-function drawCannonBalls() {
-  for (var i = 0; i < balls.length; i++) {
-    balls[i].display();
-
-    if (
-      balls[i].body.position.x >= width ||
-      balls[i].body.position.y >= height - 50
-    ) {
-      waterSound.play();
-      Matter.World.remove(world, balls[i].body);
-      balls.splice(i, 1);
-      i--;
-    }
+function showCannonBalls(ball, index) {
+  ball.display();
+  if (ball.body.position.x >= width || ball.body.position.y >= height - 50) {
+    waterSound.play();
+    Matter.World.remove(world, ball.body);
+    balls.splice(index, 1);
   }
 }
 
-function drawBoats() {
-  if (boats.length < 2) {
+function showBoats() {
+  if (boats.length < 4) {
     var boat = new Boat(posX, height - 100, 200, 200);
     boats.push(boat);
     posX += 150;
