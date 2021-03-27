@@ -65,7 +65,6 @@ function keyPressed() {
   if (keyCode === DOWN_ARROW) {
     var cannonBall = new CannonBall(cannon.x, cannon.y);
     cannonBall.trajectory = [];
-    Matter.Body.setStatic(cannonBall.body, true);
     Matter.Body.setAngle(cannonBall.body, cannon.angle);
     balls.push(cannonBall);
   }
@@ -74,7 +73,7 @@ function keyPressed() {
 function showCannonBalls(ball, index) {
   ball.display();
   if (ball.body.position.x >= width || ball.body.position.y >= height - 50) {
-    // waterSound.play();
+    waterSound.play();
     Matter.World.remove(world, ball.body);
     balls.splice(index, 1);
   }
