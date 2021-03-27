@@ -6,13 +6,13 @@ var engine, world, backgroundImg, waterSound, backgroundMusic, cannonExplosion;
 var canvas, angle, cannonBall, tower, ground, cannon, boat;
 var balls = [];
 var boats = [];
-var posX;
 
 function preload() {
   backgroundImg = loadImage("./assets/background.gif");
   backgroundMusic = loadSound("./assets/background_music.wav");
   waterSound = loadSound("./assets/cannon_water.wav");
   cannonExplosion = loadSound("./assets/cannon_explosion.wav");
+  towerImage = loadImage("./assets/tower.png");
 }
 
 function setup() {
@@ -23,7 +23,6 @@ function setup() {
   ground = new Ground(0, height - 1, width * 2, 1);
   tower = new Tower(width / 2 - 650, height - 290, 250, 580);
   cannon = new Cannon(width / 2 - 600, height / 2 - 220, 120, 40, angle);
-  posX = width - 200;
 }
 
 function draw() {
@@ -81,15 +80,30 @@ function showCannonBalls(ball, index) {
 }
 
 function showBoats() {
-  if (boats.length < 4) {
-    var boat = new Boat(posX, height - 100, 200, 200);
-    boats.push(boat);
-    posX += 150;
-  }
+  if (boats.length > 0) {
+    if (
+      boats.length < 4 &&
+      boats[boats.length - 1].body.position.x < width - 300
+    ) {
+      var positions = [-130, -100, -120, -80];
 
-  for (var i = 0; i < boats.length; i++) {
-    Matter.Body.setVelocity(boats[i].body, { x: -0.9, y: 0 });
-    boats[i].display();
+      var position = positions[Math.floor(Math.random() * positions.length)];
+
+      var boat = new Boat(width, height - 100, 200, 200, position);
+      boats.push(boat);
+    }
+
+    for (var i = 0; i < boats.length; i++) {
+      Matter.Body.setVelocity(boats[i].body, {
+        x: -0.5,
+        y: 0
+      });
+
+      boats[i].display();
+    }
+  } else {
+    var boat = new Boat(width, height - 100, 200, 200, -100);
+    boats.push(boat);
   }
 }
 

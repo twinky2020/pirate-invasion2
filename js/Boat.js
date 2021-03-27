@@ -1,5 +1,5 @@
 class Boat {
-  constructor(x, y, width, height) {
+  constructor(x, y, width, height, boatPos) {
     var options = {
       restitution: 0.8,
       friction: 1.0,
@@ -11,9 +11,11 @@ class Boat {
     this.width = width;
     this.height = height;
 
+    this.boatPosition = boatPos;
     this.image = loadImage("assets/boat.png");
     World.add(world, this.body);
   }
+
   display() {
     var angle = this.body.angle;
     var pos = this.body.position;
@@ -22,7 +24,7 @@ class Boat {
     translate(pos.x, pos.y);
     rotate(angle);
     imageMode(CENTER);
-    image(this.image, 0, 0, this.width, this.height);
+    image(this.image, 0, this.boatPosition, this.width, this.height);
     pop();
   }
 }
