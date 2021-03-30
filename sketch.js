@@ -6,6 +6,7 @@ var engine, world, backgroundImg, waterSound, backgroundMusic, cannonExplosion;
 var canvas, angle, tower, ground, cannon, boat;
 var balls = [];
 var boats = [];
+var score = 0;
 
 function preload() {
   backgroundImg = loadImage("./assets/background.gif");
@@ -45,6 +46,7 @@ function draw() {
       if (balls[i] !== undefined && boats[j] !== undefined) {
         var collision = Matter.SAT.collides(balls[i].body, boats[j].body);
         if (collision.collided) {
+          score += 5;
           Matter.World.remove(world, balls[i].body);
           balls.splice(i, 1);
           i--;
@@ -59,6 +61,11 @@ function draw() {
 
   cannon.display();
   tower.display();
+
+  fill("#6d4c41");
+  textSize(40);
+  text(`Score:${score}`, width - 200, 50);
+  textAlign(CENTER, CENTER);
 }
 
 function keyPressed() {
@@ -93,11 +100,16 @@ function showBoats() {
 
     for (var i = 0; i < boats.length; i++) {
       Matter.Body.setVelocity(boats[i].body, {
-        x: -0.5,
+        x: -0.9,
         y: 0
       });
 
       boats[i].display();
+
+      var collision = Matter.SAT.collides(tower.body, boats[i].body);
+      if (collision.collided) {
+        gameOver();
+      }
     }
   } else {
     var boat = new Boat(width, height - 100, 200, 200, -100);
@@ -110,4 +122,22 @@ function keyReleased() {
     cannonExplosion.play();
     balls[balls.length - 1].shoot();
   }
+}
+
+function gameOver() {
+  swal(
+    {
+      title: `Game Over!!!`,
+      text: "Thanks for playing!!",
+      imageUrl:
+        "https://raw.githubusercontent.com/whitehatjr/PiratesInvasion/main/assets/boat.png",
+      imageSize: "150x150",
+      confirmButtonText: "Play Again"
+    },
+    function(isConfirm) {
+      if (isConfirm) {
+        location.reload();
+      }
+    }
+  );
 }
