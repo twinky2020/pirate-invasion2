@@ -7,6 +7,8 @@ var canvas, angle, tower, ground, cannon, boat;
 var balls = [];
 var boats = [];
 var score = 0;
+var boatAnimation = [];
+var boatSpritedata, boatSpritesheet;
 
 function preload() {
   backgroundImg = loadImage("./assets/background.gif");
@@ -14,6 +16,8 @@ function preload() {
   waterSound = loadSound("./assets/cannon_water.wav");
   cannonExplosion = loadSound("./assets/cannon_explosion.wav");
   towerImage = loadImage("./assets/tower.png");
+  boatSpritedata = loadJSON("assets/boat/boat.json");
+  boatSpritesheet = loadImage("assets/boat/boat.png");
 }
 
 function setup() {
@@ -24,6 +28,13 @@ function setup() {
   ground = new Ground(0, height - 1, width * 2, 1);
   tower = new Tower(width / 2 - 650, height - 290, 250, 580);
   cannon = new Cannon(width / 2 - 600, height / 2 - 220, 120, 40, angle);
+
+  var boatFrames = boatSpritedata.frames;
+  for (var i = 0; i < boatFrames.length; i++) {
+    var pos = boatFrames[i].position;
+    var img = boatSpritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    boatAnimation.push(img);
+  }
 }
 
 function draw() {
@@ -94,7 +105,15 @@ function showBoats() {
     ) {
       var positions = [-130, -100, -120, -80];
       var position = random(positions);
-      var boat = new Boat(width, height - 100, 200, 200, position);
+      var boat = new Boat(
+        width,
+        height - 100,
+        200,
+        200,
+        position,
+        boatAnimation
+      );
+
       boats.push(boat);
     }
 
@@ -105,14 +124,14 @@ function showBoats() {
       });
 
       boats[i].display();
-
+      boats[i].animate();
       var collision = Matter.SAT.collides(tower.body, boats[i].body);
       if (collision.collided) {
         gameOver();
       }
     }
   } else {
-    var boat = new Boat(width, height - 100, 200, 200, -100);
+    var boat = new Boat(width, height - 100, 200, 200, -100, boatAnimation);
     boats.push(boat);
   }
 }
