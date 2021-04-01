@@ -2,7 +2,13 @@ const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
-var engine, world, backgroundImg, waterSound, backgroundMusic, cannonExplosion;
+var engine,
+  world,
+  backgroundImg,
+  waterSound,
+  pirateLaughSound,
+  backgroundMusic,
+  cannonExplosion;
 var canvas, angle, tower, ground, cannon, boat;
 var balls = [];
 var boats = [];
@@ -19,6 +25,7 @@ function preload() {
   backgroundImg = loadImage("./assets/background.gif");
   backgroundMusic = loadSound("./assets/background_music.wav");
   waterSound = loadSound("./assets/cannon_water.wav");
+  pirateLaughSound = loadSound("./assets/pirate_laugh.wav");
   cannonExplosion = loadSound("./assets/cannon_explosion.wav");
   towerImage = loadImage("./assets/tower.png");
   boatSpritedata = loadJSON("assets/boat/boat.json");
@@ -72,6 +79,7 @@ function draw() {
         var collision = Matter.SAT.collides(balls[i].body, boats[j].body);
         if (collision.collided) {
           if (!boats[j].isBroken) {
+            pirateLaughSound.play();
             score += 5;
             boats[j].remove(j);
             j--;
