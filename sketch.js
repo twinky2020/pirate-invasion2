@@ -13,6 +13,8 @@ var boatSpritedata, boatSpritesheet;
 var brokenBoatAnimation = [];
 var brokenBoatSpritedata, brokenBoatSpritesheet;
 
+var isGameOver = false;
+
 function preload() {
   backgroundImg = loadImage("./assets/background.gif");
   backgroundMusic = loadSound("./assets/background_music.wav");
@@ -69,15 +71,15 @@ function draw() {
       if (balls[i] !== undefined && boats[j] !== undefined) {
         var collision = Matter.SAT.collides(balls[i].body, boats[j].body);
         if (collision.collided) {
-          score += 5;
-          boats[j].remove(j);
+          if (!boats[j].isBroken) {
+            score += 5;
+            boats[j].remove(j);
+            j--;
+          }
 
           Matter.World.remove(world, balls[i].body);
           balls.splice(i, 1);
           i--;
-          //
-          // Matter.World.remove(world, boats[j].body);
-          // boats.splice(j, 1);
         }
       }
     }
@@ -139,7 +141,8 @@ function showBoats() {
       boats[i].display();
       boats[i].animate();
       var collision = Matter.SAT.collides(tower.body, boats[i].body);
-      if (collision.collided) {
+      if (collision.collided && !boats[i].isBroken) {
+        isGameOver = true;
         gameOver();
       }
     }
@@ -150,7 +153,7 @@ function showBoats() {
 }
 
 function keyReleased() {
-  if (keyCode === DOWN_ARROW) {
+  if (keyCode === DOWN_ARROW && !isGameOver) {
     cannonExplosion.play();
     balls[balls.length - 1].shoot();
   }

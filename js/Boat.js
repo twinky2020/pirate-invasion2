@@ -13,6 +13,7 @@ class Boat {
     this.height = height;
 
     this.boatPosition = boatPos;
+    this.isBroken = false;
     this.image = loadImage("assets/boat.png");
     World.add(world, this.body);
   }
@@ -25,6 +26,7 @@ class Boat {
     this.speed = 0.05;
     this.width = 300;
     this.height = 300;
+    this.isBroken = true;
     setTimeout(() => {
       Matter.World.remove(world, boats[index].body);
       boats.splice(index, 1);
