@@ -20,6 +20,16 @@ class Boat {
     this.speed += 0.05 % 1.1;
   }
 
+  remove(index) {
+    this.animation = brokenBoatAnimation;
+    this.width = 300;
+    this.height = 300;
+    setTimeout(() => {
+      Matter.World.remove(world, boats[index].body);
+      boats.splice(index, 1);
+    }, 2000);
+  }
+
   display() {
     var angle = this.body.angle;
     var pos = this.body.position;
@@ -30,6 +40,7 @@ class Boat {
     rotate(angle);
     imageMode(CENTER);
     image(this.animation[index], 0, this.boatPosition, this.width, this.height);
+    noTint();
     pop();
   }
 }

@@ -10,6 +10,9 @@ var score = 0;
 var boatAnimation = [];
 var boatSpritedata, boatSpritesheet;
 
+var brokenBoatAnimation = [];
+var brokenBoatSpritedata, brokenBoatSpritesheet;
+
 function preload() {
   backgroundImg = loadImage("./assets/background.gif");
   backgroundMusic = loadSound("./assets/background_music.wav");
@@ -18,6 +21,8 @@ function preload() {
   towerImage = loadImage("./assets/tower.png");
   boatSpritedata = loadJSON("assets/boat/boat.json");
   boatSpritesheet = loadImage("assets/boat/boat.png");
+  brokenBoatSpritedata = loadJSON("assets/boat/broken_boat.json");
+  brokenBoatSpritesheet = loadImage("assets/boat/broken_boat.png");
 }
 
 function setup() {
@@ -34,6 +39,13 @@ function setup() {
     var pos = boatFrames[i].position;
     var img = boatSpritesheet.get(pos.x, pos.y, pos.w, pos.h);
     boatAnimation.push(img);
+  }
+
+  var brokenBoatFrames = brokenBoatSpritedata.frames;
+  for (var i = 0; i < brokenBoatFrames.length; i++) {
+    var pos = brokenBoatFrames[i].position;
+    var img = brokenBoatSpritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    brokenBoatAnimation.push(img);
   }
 }
 
@@ -58,13 +70,14 @@ function draw() {
         var collision = Matter.SAT.collides(balls[i].body, boats[j].body);
         if (collision.collided) {
           score += 5;
+          boats[j].remove(j);
+
           Matter.World.remove(world, balls[i].body);
           balls.splice(i, 1);
           i--;
-
-          Matter.World.remove(world, boats[j].body);
-          boats.splice(j, 1);
-          j--;
+          //
+          // Matter.World.remove(world, boats[j].body);
+          // boats.splice(j, 1);
         }
       }
     }
