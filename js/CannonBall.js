@@ -23,7 +23,7 @@ class CannonBall {
 
   remove(index) {
     this.isSink = true;
-    Matter.Body.set(this.body, { restitution: 0.6 });
+    Matter.Body.setVelocity(this.body, { x: 0, y: 0 });
 
     this.animation = waterSplashAnimation;
     this.speed = 0.05;
