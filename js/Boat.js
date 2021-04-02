@@ -14,7 +14,7 @@ class Boat {
 
     this.boatPosition = boatPos;
     this.isBroken = false;
-    this.image = loadImage("assets/boat.png");
+
     World.add(world, this.body);
   }
   animate() {

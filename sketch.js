@@ -19,6 +19,9 @@ var boatSpritedata, boatSpritesheet;
 var brokenBoatAnimation = [];
 var brokenBoatSpritedata, brokenBoatSpritesheet;
 
+var waterSplashAnimation = [];
+var waterSplashSpritedata, waterSplashSpritesheet;
+
 var isGameOver = false;
 
 function preload() {
@@ -32,6 +35,8 @@ function preload() {
   boatSpritesheet = loadImage("assets/boat/boat.png");
   brokenBoatSpritedata = loadJSON("assets/boat/broken_boat.json");
   brokenBoatSpritesheet = loadImage("assets/boat/broken_boat.png");
+  waterSplashSpritedata = loadJSON("assets/water_splash/water_splash.json");
+  waterSplashSpritesheet = loadImage("assets/water_splash/water_splash.png");
 }
 
 function setup() {
@@ -55,6 +60,13 @@ function setup() {
     var pos = brokenBoatFrames[i].position;
     var img = brokenBoatSpritesheet.get(pos.x, pos.y, pos.w, pos.h);
     brokenBoatAnimation.push(img);
+  }
+
+  var waterSplashFrames = waterSplashSpritedata.frames;
+  for (var i = 0; i < waterSplashFrames.length; i++) {
+    var pos = waterSplashFrames[i].position;
+    var img = waterSplashSpritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    waterSplashAnimation.push(img);
   }
 }
 
@@ -113,10 +125,10 @@ function keyPressed() {
 
 function showCannonBalls(ball, index) {
   ball.display();
+  ball.animate();
   if (ball.body.position.x >= width || ball.body.position.y >= height - 50) {
     waterSound.play();
-    Matter.World.remove(world, ball.body);
-    balls.splice(index, 1);
+    ball.remove(index);
   }
 }
 
