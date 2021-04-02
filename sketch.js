@@ -127,8 +127,10 @@ function showCannonBalls(ball, index) {
   ball.display();
   ball.animate();
   if (ball.body.position.x >= width || ball.body.position.y >= height - 50) {
-    waterSound.play();
-    ball.remove(index);
+    if (!ball.isSink) {
+      waterSound.play();
+      ball.remove(index);
+    }
   }
 }
 
