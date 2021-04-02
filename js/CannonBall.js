@@ -23,13 +23,15 @@ class CannonBall {
 
   remove(index) {
     this.isSink = true;
+    Matter.Body.set(this.body, { restitution: 0.6 });
+
     this.animation = waterSplashAnimation;
     this.speed = 0.05;
     this.r = 150;
     setTimeout(() => {
       Matter.World.remove(world, this.body);
       balls.splice(index, 1);
-    }, 2000);
+    }, 1000);
   }
 
   shoot() {

@@ -90,7 +90,7 @@ function draw() {
       if (balls[i] !== undefined && boats[j] !== undefined) {
         var collision = Matter.SAT.collides(balls[i].body, boats[j].body);
         if (collision.collided) {
-          if (!boats[j].isBroken) {
+          if (!boats[j].isBroken && !balls[i].isSink) {
             pirateLaughSound.play();
             score += 5;
             boats[j].remove(j);
