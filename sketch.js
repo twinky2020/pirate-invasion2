@@ -45,7 +45,7 @@ function setup() {
   world = engine.world;
   angle = -PI / 4;
   ground = new Ground(0, height - 1, width * 2, 1);
-  tower = new Tower(200, height - 290, 250, 580);
+  tower = new Tower(200, height - 290, 250, height / 2 + 100);
   cannon = new Cannon(250, height / 2 - 140, 120, 40, angle);
 
   var boatFrames = boatSpritedata.frames;
