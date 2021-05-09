@@ -21,9 +21,9 @@ class Cannon {
     push();
     translate(this.x, this.y);
     rotate(this.angle);
-    image(this.cannon_image,-10, -20, this.width, this.height);
+    image(this.cannon_image, -10, -20, this.width, this.height);
     pop();
-    image(this.cannon_base,70, 20, 200  , 200, PI, TWO_PI);
+    image(this.cannon_base, 70, 20, 200, 200, PI, TWO_PI);
     noFill();
   }
 }

@@ -24,8 +24,6 @@ var waterSplashSpritedata, waterSplashSpritesheet;
 
 var isGameOver = false;
 
-var a;
-
 function preload() {
   backgroundImg = loadImage("./assets/background.gif");
   backgroundMusic = loadSound("./assets/background_music.wav");
@@ -47,8 +45,8 @@ function setup() {
   world = engine.world;
   angle = -PI / 4;
   ground = new Ground(0, height - 1, width * 2, 1);
-  tower = new Tower(150,350, 160, 310);
-  cannon = new Cannon(150,140, 120, 40, angle);
+  tower = new Tower(150, 350, 160, 310);
+  cannon = new Cannon(150, 140, 120, 60, angle);
 
   var boatFrames = boatSpritedata.frames;
   for (var i = 0; i < boatFrames.length; i++) {
@@ -135,13 +133,13 @@ function showCannonBalls(ball, index) {
   }
 }
 
-function showBoats() {  
+function showBoats() {
   if (boats.length > 0) {
     if (
       boats.length < 4 &&
       boats[boats.length - 1].body.position.x < width - 300
     ) {
-      var positions = [-40, -60, -80, -20];
+      var positions = [-40, -60, -70, -20];
       var position = random(positions);
       var boat = new Boat(
         width,
@@ -171,7 +169,7 @@ function showBoats() {
       }
     }
   } else {
-    var boat = new Boat(width, height - 100, 170, 170, -100, boatAnimation);
+    var boat = new Boat(width, height - 60, 170, 170, -60, boatAnimation);
     boats.push(boat);
   }
 }
