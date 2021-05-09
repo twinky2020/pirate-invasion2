@@ -24,6 +24,8 @@ var waterSplashSpritedata, waterSplashSpritesheet;
 
 var isGameOver = false;
 
+var a;
+
 function preload() {
   backgroundImg = loadImage("./assets/background.gif");
   backgroundMusic = loadSound("./assets/background_music.wav");
