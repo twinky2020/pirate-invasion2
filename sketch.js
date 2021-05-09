@@ -42,13 +42,13 @@ function preload() {
 }
 
 function setup() {
-  canvas = createCanvas(windowWidth, windowHeight);
+  canvas = createCanvas(1200, 600);
   engine = Engine.create();
   world = engine.world;
   angle = -PI / 4;
   ground = new Ground(0, height - 1, width * 2, 1);
-  tower = new Tower(200, height - 290, 250, height / 2 + 100);
-  cannon = new Cannon(250, height / 2 - 140, 120, 40, angle);
+  tower = new Tower(150,350, 160, 310);
+  cannon = new Cannon(150,140, 120, 40, angle);
 
   var boatFrames = boatSpritedata.frames;
   for (var i = 0; i < boatFrames.length; i++) {
@@ -93,7 +93,6 @@ function draw() {
         var collision = Matter.SAT.collides(balls[i].body, boats[j].body);
         if (collision.collided) {
           if (!boats[j].isBroken && !balls[i].isSink) {
-            pirateLaughSound.play();
             score += 5;
             boats[j].remove(j);
             j--;
@@ -136,19 +135,19 @@ function showCannonBalls(ball, index) {
   }
 }
 
-function showBoats() {
+function showBoats() {  
   if (boats.length > 0) {
     if (
       boats.length < 4 &&
       boats[boats.length - 1].body.position.x < width - 300
     ) {
-      var positions = [-130, -100, -120, -80];
+      var positions = [-40, -60, -80, -20];
       var position = random(positions);
       var boat = new Boat(
         width,
         height - 100,
-        200,
-        200,
+        170,
+        170,
         position,
         boatAnimation
       );
@@ -166,12 +165,13 @@ function showBoats() {
       boats[i].animate();
       var collision = Matter.SAT.collides(tower.body, boats[i].body);
       if (collision.collided && !boats[i].isBroken) {
+        pirateLaughSound.play();
         isGameOver = true;
         gameOver();
       }
     }
   } else {
-    var boat = new Boat(width, height - 100, 200, 200, -100, boatAnimation);
+    var boat = new Boat(width, height - 100, 170, 170, -100, boatAnimation);
     boats.push(boat);
   }
 }

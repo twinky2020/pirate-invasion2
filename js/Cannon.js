@@ -5,8 +5,8 @@ class Cannon {
     this.width = width;
     this.height = height;
     this.angle = angle;
-    this.image2 = loadImage("./assets/cannon_base.png");
-    this.image1 = loadImage("./assets/cannon.png");
+    this.cannon_image = loadImage("assets/CANON.png");
+    this.cannon_base = loadImage("assets/cannon_base.png");
   }
   display() {
     if (keyIsDown(RIGHT_ARROW) && this.angle < 0.1) {
@@ -21,8 +21,9 @@ class Cannon {
     push();
     translate(this.x, this.y);
     rotate(this.angle);
-    image(this.image1, -10, -25, this.width, this.height + 20);
+    image(this.cannon_image,-10, -20, this.width, this.height);
     pop();
-    image(this.image2, this.x - 180, this.y - 120, 300, 230);
+    image(this.cannon_base,70, 20, 200  , 200, PI, TWO_PI);
+    noFill();
   }
 }
