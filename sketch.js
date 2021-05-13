@@ -26,10 +26,10 @@ var isGameOver = false;
 
 function preload() {
   backgroundImg = loadImage("./assets/background.gif");
-  backgroundMusic = loadSound("./assets/background_music.wav");
-  waterSound = loadSound("./assets/cannon_water.wav");
-  pirateLaughSound = loadSound("./assets/pirate_laugh.wav");
-  cannonExplosion = loadSound("./assets/cannon_explosion.wav");
+  backgroundMusic = loadSound("./assets/background_music.mp3");
+  waterSound = loadSound("./assets/cannon_water.mp3");
+  pirateLaughSound = loadSound("./assets/pirate_laugh.mp3");
+  cannonExplosion = loadSound("./assets/cannon_explosion.mp3");
   towerImage = loadImage("./assets/tower.png");
   boatSpritedata = loadJSON("assets/boat/boat.json");
   boatSpritesheet = loadImage("assets/boat/boat.png");

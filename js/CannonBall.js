@@ -11,7 +11,7 @@ class CannonBall {
     this.body = Bodies.circle(x, y, this.r, options);
     this.image = loadImage("./assets/cannonball.png");
     this.animation = [this.image];
-    this.tower = loadImage("./assets/gray.jpg");
+    this.tower = loadImage("./assets/tower.png");
     this.trajectory = [];
     this.isSink = false;
     World.add(world, this.body);
